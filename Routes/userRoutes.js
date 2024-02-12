@@ -1,12 +1,16 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 //create two routes for login and singup
 //importing controller
-const { registerUser } = require("../controller/userControllers");
-const { authUser } = require("../controller/userControllers");
-const { alluser } = require("../controller/userControllers");
-const { protect } = require("../middleware/authMiddleware");
+// import {  } from "../controller/userControllers.js";
+import {
+  authUser,
+  alluser,
+  registerUser,
+} from "../controller/userControllers.js";
+// import { alluser } from "../controller/userControllers.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 router.post("/login", authUser);
 router.post("/signUp", registerUser);
@@ -16,4 +20,4 @@ router.get("/", protect, alluser);
 
 //here authUser and registerUser is controller ,basically its a function
 
-module.exports = router;
+export default router;

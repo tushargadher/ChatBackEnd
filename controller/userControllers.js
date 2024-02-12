@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const User = require("../Models/userModel");
-const generateToken = require("../config/generateToken");
+import asyncHandler from "express-async-handler";
+import User from "../Models/userModel.js";
+import generateToken from "../config/generateToken.js";
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
   if (!name || !email || !password) {
@@ -38,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-const authUser = async (req, res) => {
+export const authUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -57,7 +57,7 @@ const authUser = async (req, res) => {
 };
 
 // searching user with api/user?search=tushar
-const alluser = asyncHandler(async (req, res) => {
+export const alluser = asyncHandler(async (req, res) => {
   //getting value of seach from the query
   const keyword = req.query.search
     ? //seaeching name and email incasesensetive
@@ -75,4 +75,5 @@ const alluser = asyncHandler(async (req, res) => {
   // console.log(users);
 });
 
-module.exports = { registerUser, authUser, alluser };
+// export default { registerUser, authUser, alluser };/
+// export default { registerUser, authUser, alluser };

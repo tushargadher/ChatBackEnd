@@ -1,21 +1,25 @@
-const express = require("express");
-const chats = require("./Data/data");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const connectToMongo = require("./config/db");
-const userRoutes = require("./Routes/userRoutes");
-const chatRoutes = require("./Routes/chatRoutes");
-const messageRoute = require("./Routes/messageRoute");
+import express from "express";
+import pkg from "express";
+const { json, httpServer } = pkg;
+// import chats from "./Data/data";
+import { config } from "dotenv";
+import cors from "cors";
+import { Server } from "socket.io";
+// import
+import connectToMongo from "./config/db.js";
+import userRoutes from "./Routes/userRoutes.js";
+import chatRoutes from "./Routes/chatRoutes.js";
+import messageRoute from "./Routes/messageRoute.js";
 const app = express();
 const host = "localhost";
 const port = process.env.PORT || 5000;
 const FrontEnd = "http://localhost:5173/";
 
-dotenv.config();
+config();
 connectToMongo();
 
 app.use(cors());
-app.use(express.json()); //to accepet json data
+app.use(json()); //to accepet json data
 
 //api routes
 app.use("/api/user", userRoutes);
@@ -26,13 +30,12 @@ const server = app.listen(port, () => {
   console.log(`server is running on http://${host}:${port}`);
 });
 
-const io = require("socket.io")(server, {
+const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     origin: { FrontEnd },
   },
 });
-
 //on means what happen when event is emit
 io.on("connection", (socket) => {
   console.log("connection to socket.io");

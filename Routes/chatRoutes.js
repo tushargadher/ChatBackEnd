@@ -1,14 +1,7 @@
-const express = require("express");
-const { protect } = require("../middleware/authMiddleware");
-const {
-  accessChat,
-  fetchChats,
-  createGroupChat,
-  renameGroup,
-  addToGroup,
-  removeFromGroup,
-} = require("../controller/chatControllers");
-const router = express.Router();
+import { Router } from "express";
+import { protect } from "../middleware/authMiddleware.js";
+import { accessChat, fetchChats, createGroupChat, renameGroup, addToGroup, removeFromGroup } from "../controller/chatControllers.js";
+const router = Router();
 
 //show chat only if the user is logged in so , here we add protect middleware
 router.post("/", protect, accessChat);
@@ -23,4 +16,4 @@ router.put("/addToGroup", protect, addToGroup);
 //for removing someone from the group chat
 router.put("/groupremove", protect, removeFromGroup);
 
-module.exports = router;
+export default router;

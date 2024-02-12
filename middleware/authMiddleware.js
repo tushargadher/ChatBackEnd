@@ -1,8 +1,8 @@
-const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
-const User = require("../Models/userModel");
+import { verify } from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import User from "../Models/userModel.js";
 
-const protect = asyncHandler(async (req, res, next) => {
+export const protect = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -14,7 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       //cheking if the token is right or not
-      const verifyToken = jwt.verify(token, "tusharisthebest");
+      const verifyToken = verify(token, "tusharisthebest");
 
       //"-password will not return password"
       req.user = await User.findById(verifyToken.id).select("-password");
@@ -28,4 +28,4 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect };
+//  default { protect };

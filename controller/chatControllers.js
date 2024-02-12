@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const Chat = require("../Models/ChatModel");
-const User = require("../Models/userModel");
+import asyncHandler from "express-async-handler";
+import Chat from "../Models/ChatModel.js";
+import User from "../Models/userModel.js";
 
-const accessChat = asyncHandler(async (req, res) => {
+export const accessChat = asyncHandler(async (req, res) => {
   //user will send userId with the request
   const { userId } = req.body;
   if (!userId) {
@@ -52,7 +52,7 @@ const accessChat = asyncHandler(async (req, res) => {
   }
 });
 
-const fetchChats = asyncHandler(async (req, res) => {
+export const fetchChats = asyncHandler(async (req, res) => {
   try {
     //fecth only given users chats
     //here req.user._id is come from protect middleware
@@ -74,7 +74,7 @@ const fetchChats = asyncHandler(async (req, res) => {
   }
 });
 
-const createGroupChat = asyncHandler(async (req, res) => {
+export const createGroupChat = asyncHandler(async (req, res) => {
   //for creating groupchat we need chatname and users name
   if (!req.body.users || !req.body.name) {
     res.status(400).send({ error: "Please Fill all the feilds" });
@@ -112,7 +112,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
   }
 });
 
-const renameGroup = asyncHandler(async (req, res) => {
+export const renameGroup = asyncHandler(async (req, res) => {
   if (!req.body.name || !req.body.groupID) {
     res.status(400).send("Please Enter All the Feilds");
   }
@@ -135,7 +135,7 @@ const renameGroup = asyncHandler(async (req, res) => {
   }
 });
 
-const addToGroup = asyncHandler(async (req, res) => {
+export const addToGroup = asyncHandler(async (req, res) => {
   const { userID, groupID } = req.body;
   if (!userID || !groupID) {
     res.status(400).send("Please Enter All the Feilds");
@@ -159,7 +159,7 @@ const addToGroup = asyncHandler(async (req, res) => {
   }
 });
 
-const removeFromGroup = asyncHandler(async (req, res) => {
+export const removeFromGroup = asyncHandler(async (req, res) => {
   const { userID, groupID } = req.body;
   if (!userID || !groupID) {
     res.status(400).send("Please Enter All the Feilds");
@@ -187,11 +187,4 @@ const removeFromGroup = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
-  accessChat,
-  fetchChats,
-  createGroupChat,
-  renameGroup,
-  addToGroup,
-  removeFromGroup,
-};
+

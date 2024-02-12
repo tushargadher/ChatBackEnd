@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
+import { Schema as _Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 const ChatSchema = new Schema(
   {
     chatName: {
@@ -13,16 +13,16 @@ const ChatSchema = new Schema(
     //chat have two user,while groupchat have more then two user
     users: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: _Schema.Types.ObjectId,
         ref: "User",
       },
     ],
     latestMessage: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: _Schema.Types.ObjectId,
       ref: "Message",
     },
     groupAdmin: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: _Schema.Types.ObjectId,
       ref: "User",
     },
   },
@@ -31,4 +31,4 @@ const ChatSchema = new Schema(
   }
 );
 //here chatModel is name of colleaction and chatschema is schema for each collection
-module.exports = mongoose.model("Chat", ChatSchema);
+export default model("Chat", ChatSchema);

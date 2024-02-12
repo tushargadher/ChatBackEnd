@@ -1,9 +1,9 @@
-const asyncHandler = require("express-async-handler");
-const Message = require("../Models/messageModel");
-const Chat = require("../Models/ChatModel");
-const User = require("../Models/userModel");
+import asyncHandler from "express-async-handler";
+import Message from "../Models/messageModel.js";
+import Chat from "../Models/ChatModel.js";
+import User from "../Models/userModel.js";
 
-const sendMessage = asyncHandler(async (req, res) => {
+export const sendMessage = asyncHandler(async (req, res) => {
   //three things we need logged user chat id and message
   //   console.log(req.user);
   const { content, chatID } = req.body;
@@ -38,7 +38,7 @@ const sendMessage = asyncHandler(async (req, res) => {
   }
 });
 
-const allmessages = asyncHandler(async (req, res) => {
+export const allmessages = asyncHandler(async (req, res) => {
   try {
     const message = await Message.find({ chat: req.params.chatID })
       .populate("sender", "name pic email")
@@ -49,4 +49,3 @@ const allmessages = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { sendMessage, allmessages };
