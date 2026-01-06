@@ -18,6 +18,9 @@ connectToMongo();
 app.use(cors());
 app.use(json()); //to accepet json data
 //api routes
+app.get("/",(req,res)=>{
+  res.send("chat api runing");
+});
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoute);
