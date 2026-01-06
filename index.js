@@ -1,7 +1,7 @@
 import express from "express";
 import pkg from "express";
 const { json, httpServer } = pkg;
-import { config } from "dotenv";
+import dotenv from "dotenv";
 import cors from "cors";
 import { Server } from "socket.io";
 import connectToMongo from "./config/db.js";
@@ -13,7 +13,7 @@ const host = "localhost";
 const port = process.env.PORT || 5000;
 const FrontEnd = "http://localhost:5173/";
 
-config();
+dotenv.config();
 connectToMongo();
 app.use(cors());
 app.use(json()); //to accepet json data
