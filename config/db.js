@@ -1,11 +1,14 @@
 import { connect } from "mongoose";
-const mongoURL ="mongodb+srv://tushargadher123:tusharisthebest@cluster0.apylwhc.mongodb.net/?retryWrites=true&w=majority";
-
+import dotenv from "dotenv";
+dotenv.config();
 
 const connectToMongo = () => {
-  connect(mongoURL).then(() => {
+  connect(process.env.MONGO).then(() => {
     console.log("Connected to Mongo Successfully...");
+  }).catch((err) => {
+    console.error("Mongo connection error:", err);
   });
 };
+
 export default connectToMongo;
 // tusharisthebest
